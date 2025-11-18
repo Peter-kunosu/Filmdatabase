@@ -28,23 +28,48 @@ public class Playlist {
             return;
         }
 
-        // Print listen
         printList(newFilms);
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Vælg en film (nummer):");
-        int index = scan.nextInt();
-        index--;
+        System.out.println("Vælg en film: ");
+        int index = scan.nextInt() - 1;
 
         if (index < 0 || index >= newFilms.size()) {
             System.out.println("Ugyldigt valg!");
             return;
         }
 
-        Film chosen = newFilms.remove(index);
+
+        Film chosen = newFilms.get(index);
+
+
+        Film nextFilm = null;
+        if (index + 1 < newFilms.size()) {
+            nextFilm = newFilms.get(index + 1);
+        }
+
+
+        newFilms.remove(index);
+
 
         System.out.println("Du spiller nu: " + chosen.getTitle() + " (" + chosen.getYear() + ")");
-        System.out.println("Næste film er: ");
+
+
+        if (nextFilm != null) {
+            System.out.println("Næste film er: " + nextFilm.getTitle() + " (" + nextFilm.getYear() + ")");
+            System.out.println("--- Ny Liste ---");
+            printList(newFilms);
+        } else {
+            System.out.println("Der er ingen næste film.");
+        }
+    }
+
+    public void removeList(Film film) {
+        newFilms.remove(film);
+    }
+
+    public void removeGenre(Genre genre) {
+        newFilms.removeIf(film -> film.hasGenre(genre));
     }
 
 }
