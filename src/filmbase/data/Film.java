@@ -2,6 +2,7 @@ package filmbase.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class Film {
     String title;
@@ -15,10 +16,12 @@ public class Film {
         this.year = year;
     }
 
-    public Film(String title, int year, Genre genre) {
+    public Film(String title, int year, Genre... genres) {
         this.title = title;
         this.year = year;
-        this.genres.add(genre);
+        for (Genre genre : genres) {
+            this.genres.add(genre);
+        }
     }
 
     public boolean hasGenre(Genre genre) {
@@ -57,4 +60,17 @@ public class Film {
         this.genres.add(genre);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return year == film.year &&
+                title.equalsIgnoreCase(film.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title.toLowerCase(), year);
+    }
 }

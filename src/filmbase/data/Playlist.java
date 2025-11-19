@@ -1,4 +1,5 @@
 package filmbase.data;
+import filmbase.app.*;
 
 import filmbase.app.FilmBase;
 
@@ -13,11 +14,39 @@ public class Playlist {
 
     private List<Film> newFilms = new ArrayList<>();
 
-    public void addToList(Film film) {
-        newFilms.add(film);
+    public boolean addFilm(Film film) {
+        if (!allFilms.contains(film)) {
+            allFilms.add(film);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Collection<Film> getFilms (){
+    public boolean addNewFilm(Film film) {
+        if (!newFilms.contains(film)) {
+            newFilms.add(film);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Film nextFilm (){
+        if(newFilms.size() < 2)
+            return null;
+        return newFilms.get(1);
+    }
+
+    public void clearList(){
+        newFilms.clear();
+    }
+
+    public List<Film> listOfFilms() {
+        return newFilms;
+    }
+
+    public Collection<Film> ListFilms (){
         return newFilms;
     }
 
@@ -72,4 +101,19 @@ public class Playlist {
         newFilms.removeIf(film -> film.hasGenre(genre));
     }
 
+    public void sortByYear (){
+        newFilms.sort(new YearComparator());
+    }
+
+    public void sortByAlphabet (){
+        newFilms.sort(new TitleComparator());
+    }
+
+    public void reversedYearSort (){
+        newFilms.sort(new YearComparator().reversed());
+    }
+
+    public void reversedTitleSort (){
+        newFilms.sort(new TitleComparator().reversed());
+    }
 }

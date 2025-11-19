@@ -3,13 +3,12 @@ package filmbase.app;
 import filmbase.data.Film;
 import filmbase.data.Genre;
 import filmbase.data.Playlist;
+import filmbase.data.*;
 
 import java.util.*;
 
-public class FilmBase {
-    public void TomConstruct() {
 
-    }
+public class FilmBase {
 
     public void start() {
         //System.out.println("FilmBasen er startet");
@@ -20,15 +19,23 @@ public class FilmBase {
     }
 
     private ArrayList<Film> allFilms = new ArrayList<>();
+    public boolean addFilm(Film film) {
+        if (!allFilms.contains(film)) {
+            allFilms.add(film);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     private void initFilms() {
-        allFilms.add(new Film("The Lorax", 2012, Genre.ADVENTURE));
-        allFilms.getLast().addGenre(Genre.CRIME);
-        allFilms.add(new Film("Barbie", 2024, Genre.ROMANCE));
-        allFilms.add(new Film("John Wick", 2024, Genre.THRILLER));
-        allFilms.getLast().addGenre(Genre.CRIME);
+        addFilm(new Film("The Lorax", 2012, Genre.ADVENTURE));
+        (new Film("Barbie", 2024, Genre.ROMANCE));
+        (new Film("John Wick", 2024, Genre.THRILLER));
+
         allFilms.add(new Film("John Wick 2", 2024, Genre.THRILLER));
-        allFilms.getLast().addGenre(Genre.CRIME);
+
         allFilms.add(new Film("John Wick 3", 2024, Genre.THRILLER));
         allFilms.getLast().addGenre(Genre.CRIME);
         allFilms.add(new Film("John Wick 4", 2025, Genre.THRILLER));
@@ -37,7 +44,7 @@ public class FilmBase {
         allFilms.getLast().addGenre(Genre.THRILLER);
         allFilms.add(new Film("The Downer", 2022, Genre.SPORT));
     }
-9
+
 
     public static void printList(Collection<Film> films) {
         int counter = 1;
@@ -56,13 +63,13 @@ public class FilmBase {
 
     public void testFiltering() {
         Playlist playlist = new Playlist();
-        playlist.addToList(allFilms.get(0));
-        playlist.addToList(allFilms.get(1));
-        playlist.addToList(allFilms.get(2));
-        playlist.addToList(allFilms.get(3));
-        playlist.addToList(allFilms.get(4));
+        playlist.addFilm(allFilms.get(0));
+        playlist.addFilm(allFilms.get(1));
+        playlist.addFilm(allFilms.get(2));
+        playlist.addFilm(allFilms.get(3));
+        playlist.addFilm(allFilms.get(4));
 
-        printList(playlist.getFilms());
+        printList(playlist.listOfFilms());
     }
 
     public void countGenres() {
